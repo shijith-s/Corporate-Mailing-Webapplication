@@ -11,6 +11,7 @@ const mailRouter = require("./MailRouter");
 //registering router
 
 router.post("/signup", async (req, res) => {
+  res.send("redireccted to userRouter");
   //validating the data obtained from post request
   console.log(req.body);
   const { error } = registerValidator(req.body);
