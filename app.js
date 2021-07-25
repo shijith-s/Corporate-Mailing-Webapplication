@@ -35,9 +35,7 @@ app.use(cookieParser());
 app.use("/user", userRouter);
 
 app.get("/", (req, res) => {
-  res.send(
-    `HOME PAGE : running on port :${process.env.PORT} & mongoDB URL: ${process.env.DB_CONNECTION}`
-  );
+  res.send(`HOME PAGE : running on port :${process.env.PORT}`);
 });
 
 //connecting to database
