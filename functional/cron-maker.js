@@ -5,7 +5,7 @@ const cronMaker = (schedule) => {
       let interval_value = Number(schedule.data.interval);
       let format = schedule.data.timeFormat;
       format === "hours"
-        ? (scheduleRule = ` * */${interval_value} * * *`)
+        ? (scheduleRule = `* */${interval_value} * * *`)
         : (scheduleRule = `*/${interval_value} * * * *`);
       return scheduleRule;
     case "weekly": {
@@ -27,7 +27,7 @@ const cronMaker = (schedule) => {
       let date = Number(schedule.data.date);
       let hour = Number(schedule.data.time.split(":")[0]);
       let min = Number(schedule.data.time.split(":")[1]);
-      scheduleRule = `${min} ${hour} ${date} ${month} * `;
+      scheduleRule = `${min} ${hour} ${date} ${month} *`;
       return scheduleRule;
     }
     default:
