@@ -23,7 +23,7 @@ router.post("/add", verifyAuth, async (req, res) => {
     let _id = new ObjectId();
     // stroing the _id inside the mailSchema
     data[`_id`] = _id;
-
+    data.scheduleType = data.schedule.type;
     // converting the schedule passed from the client to cron expression
     data.schedule = cronMaker(data.schedule);
 

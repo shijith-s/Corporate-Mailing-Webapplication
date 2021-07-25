@@ -1,6 +1,7 @@
 const express = require("express");
 // const register = require("../models/register");
 const registeredUser = require("../models/register");
+const schedules = require("../models/Schedules");
 const router = express.Router();
 const { registerValidator, loginValidator } = require("./validator");
 const bcrypt = require("bcryptjs");
@@ -8,7 +9,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv/config");
 const mailRouter = require("./MailRouter");
 
-//registering router  
+//registering router
 router.post("/signup", async (req, res) => {
   //validating the data obtained from post request
   console.log(req.body);
@@ -73,9 +74,32 @@ router.post("/login", async (req, res) => {
 router.use("/mails", mailRouter);
 
 //to delete all data in DB
-router.delete("/", async (req, res) => {
-  const deleted = await registeredUser.deleteMany({});
-  res.json(deleted);
+router.delete("/deleteall", async (req, res) => {
+  const deleted_users = await registeredUser.deleteMany({});
+  const deleted_schedules = await schedules.deleteMany({});
+
+  res.json({ users: deleted_users, schedules: deleted_schedules });
+});
+
+//to delete one user in DB
+router.delete("/delete/:id", async (req, res) => {
+  const deleted_user = await registeredUser.deleteOne({ _id: req.params.id });
+  const deleted_schedule = await schedules.deleteOne({
+    userID: req.params.id,
+  });
+  res.json({ user: deleted_user, schedule: deleted_schedule });
+});
+
+// to get all users in the DB
+router.get("/getall", async (req, res) => {
+  const allMails = await registeredUser.find({});
+  res.json({ users: allMails });
+});
+
+// to get all schedules
+router.get("/getallschedules", async (req, res) => {
+  const allSchedules = await schedules.find({});
+  res.json({ schedules: allSchedules });
 });
 
 module.exports = router;

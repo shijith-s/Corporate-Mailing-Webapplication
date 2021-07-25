@@ -26,6 +26,9 @@ const mailSchema = mongoose.Schema({
     type: String,
     // required: true,
   },
+  scheduleType: {
+    type: String,
+  },
 });
 
 module.exports = mailSchema;
