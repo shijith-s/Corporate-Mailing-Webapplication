@@ -17,7 +17,7 @@ const sendMail = async (data) => {
   console.log([mailID, password]);
   const message = {
     from: "shijith@gmail.com",
-    to: data.recipients,
+    to: data.recipients.join(),
     subject: data.subject,
     text: data.body,
   };

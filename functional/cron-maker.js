@@ -2,9 +2,11 @@ const cronMaker = (schedule) => {
   let scheduleRule = "";
   switch (schedule.type) {
     case "recurring":
-      let hour = Number(schedule.data.hours);
-      let min = Number(schedule.data.min);
-      scheduleRule = ` * * * * *`;
+      let interval_value = Number(schedule.data.interval);
+      let format = schedule.data.timeFormat;
+      format === "hours"
+        ? (scheduleRule = ` * */${interval_value} * * *`)
+        : (scheduleRule = `*/${interval_value} * * * *`);
       return scheduleRule;
     case "weekly": {
       let day = Number(schedule.data.day);

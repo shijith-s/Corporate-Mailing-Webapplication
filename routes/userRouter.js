@@ -8,14 +8,13 @@ const jwt = require("jsonwebtoken");
 require("dotenv/config");
 const mailRouter = require("./MailRouter");
 
-//registering router
-
+//registering router  
 router.post("/signup", async (req, res) => {
   //validating the data obtained from post request
   console.log(req.body);
   const { error } = registerValidator(req.body);
   if (error) {
-    return res.status(400).send(error.details[0].message);
+    return res.status(400).json({ message: error.details[0].message });
   }
 
   //Checking whether the username given is already taken or not
@@ -23,7 +22,7 @@ router.post("/signup", async (req, res) => {
     username: req.body.username,
   });
   if (usernameExists) {
-    return res.status(400).send("This Username already exists");
+    return res.status(400).json({ message: "This Username already exists" });
   }
   //Encrypting the password
   const salt = await bcrypt.genSalt(10);
@@ -39,22 +38,18 @@ router.post("/signup", async (req, res) => {
     const saved = await user.save();
     console.log(saved);
     const token = jwt.sign({ _id: saved._id }, process.env.TOKEN_SECRET);
-    // console.log({ id: saved.id, name: saved.name });
-    // res.header("jwtToken", token)
-    // res.json({ id: saved.id, name: saved.name, jwtToken: token });
     res.json({ name: saved.name, jwtToken: token });
   } catch (err) {
-    res.send(err);
+    res.status(500).json({ message: err.message });
   }
 });
 
 //Login router
-
 router.post("/login", async (req, res) => {
   //validating the data obtained from post request
   const { error } = loginValidator(req.body);
   if (error) {
-    return res.status(400).send(error.details[0].message);
+    return res.status(400).json({ message: error.details[0].message });
   }
 
   //Checking whether the user exists and collecting the stored info

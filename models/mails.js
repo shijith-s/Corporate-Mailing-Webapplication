@@ -12,7 +12,7 @@ const mailSchema = mongoose.Schema({
     max: 1024,
   },
   recipients: {
-    type: String,
+    type: Array,
     required: true,
   },
   body: {

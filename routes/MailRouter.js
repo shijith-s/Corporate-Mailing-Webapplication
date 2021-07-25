@@ -43,7 +43,7 @@ router.post("/add", verifyAuth, async (req, res) => {
     console.log("mail saved");
     res.status(200).json("successfully saved mail");
   } catch (err) {
-    res.status(400).json(err);
+    res.status(400).json({ message: err.message });
     console.log("some error occured");
     console.log(err);
   }
@@ -56,7 +56,7 @@ router.get("/getall", verifyAuth, async (req, res) => {
     const user = await registeredUser.findById(userID);
     res.status(200).json({ mails: user.mails });
   } catch (err) {
-    res.status(err.status).json("some error occured");
+    res.status(err.status).json({ message: err.message });
   }
 });
 
@@ -78,7 +78,7 @@ router.delete("/delete/:id", verifyAuth, async (req, res) => {
     console.log("successfully deleted the mail");
     res.status(200).json("successfully deleted");
   } catch (err) {
-    res.status(400).json(err);
+    res.status(400).json({ message: err.message });
   }
 });
 
