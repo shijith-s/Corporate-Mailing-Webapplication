@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const app = express();
 const userRouter = require("./routes/userRouter");
 const mongoose = require("mongoose");
@@ -8,6 +9,8 @@ const cookieParser = require("cookie-parser");
 const scheduleChecker = require("./functional/scheduleChecker");
 
 scheduleChecker();
+
+app.use(express.static(path.resolve(__dirname, "./Front-end/build")));
 
 //midlleware
 app.use(express.json());
@@ -35,7 +38,7 @@ app.use(cookieParser());
 app.use("/user", userRouter);
 
 app.get("/", (req, res) => {
-  res.send(`HOME PAGE : running on port :${process.env.PORT}`);
+  res.sendFile(path.resolve(__dirname, "./Front-end/build", "index.html"));
 });
 
 //connecting to database
