@@ -1,7 +1,7 @@
 # Corporate-Mailing-Webapp
 
 ####  hedwig mailer
-https://hedwig-mailer.herokuapp.com/
+https://hedwig-mailer-old.herokuapp.com/
 ### A <strong>MERN stack</strong> application which sends scheduled and recurring mails to the recipients as per user input.
 
 This is a corporate mailing webap  which have user login features.<br/>
